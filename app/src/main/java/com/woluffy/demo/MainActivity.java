@@ -71,25 +71,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 指引权限设置弹窗
      */
     private void showLoadingDialog() {
-        dialog = new Dialog(this, R.style.permissiondialog);
-        dialog.setContentView(R.layout.dialog_waiting);
-        WindowManager windowManager = getWindowManager();
-        Display display = windowManager.getDefaultDisplay();
-        Window window = dialog.getWindow();
+        if (dialog == null) {
+            dialog = new Dialog(this, R.style.permissiondialog);
+            dialog.setContentView(R.layout.dialog_waiting);
+            WindowManager windowManager = getWindowManager();
+            Display display = windowManager.getDefaultDisplay();
+            Window window = dialog.getWindow();
 //        WindowManager.LayoutParams attributes = window.getAttributes();
-        window.setGravity(Gravity.CENTER);
+            window.setGravity(Gravity.CENTER);
 //        Point point = new Point();
 //        display.getSize(point);
 //        attributes.width = point.x * 80 / 100;
 //        dialog.getWindow().setAttributes(attributes);
-        dialog.show();
+        }
+        if (isFinishing() && dialog.isShowing()) {
+            return;
+        } else {
+            dialog.show();
+        }
     }
 
-
+    private void dissmissLoading() {
+        if (dialog != null && !isFinishing() && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+    }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.cancel_anim:
 //                if(cancelable) {
 //                    alphaAnimation.cancel();
@@ -98,14 +108,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.clear_anim:
                 button1.clearAnimation();
-              break;
+                break;
             case R.id.anim_start:
                 button1.setAnimation(alphaAnimation);
                 alphaAnimation.startNow();
-              break;
+                break;
             case R.id.view_start:
                 button1.startAnimation(alphaAnimation);
-              break;
+                break;
 
             case R.id.button1:
 
@@ -115,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             Log.e(TAG, "onKeyDown: ....");
         }
         return super.onKeyDown(keyCode, event);
