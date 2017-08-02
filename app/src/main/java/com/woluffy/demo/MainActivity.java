@@ -4,12 +4,8 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Display;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
@@ -74,11 +70,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (dialog == null) {
             dialog = new Dialog(this, R.style.permissiondialog);
             dialog.setContentView(R.layout.dialog_waiting);
-            WindowManager windowManager = getWindowManager();
-            Display display = windowManager.getDefaultDisplay();
-            Window window = dialog.getWindow();
+//            WindowManager windowManager = getWindowManager();
+//            Display display = windowManager.getDefaultDisplay();
+//            Window window = dialog.getWindow();
 //        WindowManager.LayoutParams attributes = window.getAttributes();
-            window.setGravity(Gravity.CENTER);
+//            window.setGravity(Gravity.CENTER);
 //        Point point = new Point();
 //        display.getSize(point);
 //        attributes.width = point.x * 80 / 100;
